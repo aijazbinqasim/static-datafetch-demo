@@ -10,6 +10,11 @@
       "id": "p3",
       "title": "XBoxs",
       "description": "This is a good gaming console by Microsoft."
+    },
+    {
+      "id": "p4",
+      "title": "Keyboard",
+      "description": "This is a good keyboard specially for programing."
     }
   ]
 }
