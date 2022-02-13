@@ -9,7 +9,8 @@ export default function LastSales() {
 
   const { data, error } = useSWR(
     "https://static-datafetch-demo-default-rtdb.firebaseio.com/sales.json",
-    fetcher
+    fetcher,
+    { refreshInterval: 1000 }
   );
 
   useEffect(() => {
