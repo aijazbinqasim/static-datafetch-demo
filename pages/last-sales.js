@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
-export default function LastSales() {
-  const [sales, setSales] = useState([]);
+export default function LastSales(props) {
+  const [sales, setSales] = useState(props.sales);
   //const [loading, setLoading] = useState(false);
 
   const fetcher = (url) => fetch(url).then((r) => r.json());
@@ -32,7 +32,7 @@ export default function LastSales() {
   if (error) {
     return <p>failed to load!</p>;
   }
-  if (!data) {
+  if (!data && !sales) {
     return <p>loading...</p>;
   }
 
@@ -71,4 +71,23 @@ export default function LastSales() {
       ))}
     </ul>
   );
+}
+
+export async function getStaticProps() {
+  const response = await fetch(
+    "https://static-datafetch-demo-default-rtdb.firebaseio.com/sales.json"
+  );
+  const data = await response.json();
+
+  const salesArr = [];
+
+  for (const key in data) {
+    salesArr.push({
+      id: key,
+      username: data[key].username,
+      volume: data[key].volume,
+    });
+  }
+
+  return { props: { sales: salesArr } };
 }
